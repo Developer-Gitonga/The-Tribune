@@ -5,7 +5,10 @@ from django.shortcuts import render
 
 # Create your views here.
 def welcome(request):
-    return render(request, 'welcome.html')
+    date = dt.date.today()
+    day = convert_dates(date)
+    print(day)
+    return render(request, 'all-news/past-news.html', {'date':date})
 
 def news_of_day(request):
     date = dt.date.today()
