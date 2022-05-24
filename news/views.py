@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404
 import datetime as dt
 from django.shortcuts import render
+from .models import Article
 
 # Create your views here.
 def welcome(request):
@@ -35,25 +36,6 @@ def convert_dates(dates):
     day = days[day_number]
     return day
 
-# def past_days_news(request,str2):
-    
-#     # try:
-#     #     # Converts data from the string Url
-#     #     date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
-#     # except ValueError:
-#     #     # Raise 404 error when ValueError is thrown
-#     #     raise Http404()
-
-#     day = convert_dates(str2)
-#     html = f'''
-#         <html>
-#             <body>
-#                 <h1>News for {day}</h1>
-#             </body>
-#         </html>
-#             '''
-#     return HttpResponse(html)
-
 
 def past_days_news(request,past_date):
     try:
@@ -65,4 +47,12 @@ def past_days_news(request,past_date):
         assert False
     if date == dt.date.today():
         return redirect(news_of_day)
+
+        news =  Article.days_news(date)
     return render(request, 'all-news/past-news.html', {"date":date})
+
+
+def news_today(request):
+    date = dt.date.today()
+    news = Article.todays_news()
+    return render(request, 'all-news/today-news.html', {"date": date,"news":news})
