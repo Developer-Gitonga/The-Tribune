@@ -6,7 +6,7 @@ class Editor(models.Model):
     first_name = models.CharField(max_length =30)
     last_name = models.CharField(max_length =30)
     email = models.EmailField()
-    # phone_number = models.CharField(max_length = 10,blank =True)
+    phone_number = models.CharField(max_length = 10,blank =True)
 
     def __str__(self):
         return self.first_name
@@ -36,10 +36,13 @@ class Article(models.Model):
         news = cls.objects.filter(pub_date__date = today)
         return news
 
+    
+
     @classmethod
-    def days_news(cls,date):
-        news = cls.objects.filter(pub_date__date = date)
+    def search_by_title(cls,search_term):
+        news = cls.objects.filter(title__icontains=search_term)
         return news
+
 
     @classmethod
     def search_by_title(cls,search_term):

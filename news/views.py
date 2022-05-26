@@ -23,7 +23,7 @@ def news_of_day(request):
             </body>
         </html>
             '''
-    return HttpResponse(html)
+    return render(request, 'all-news/today-news.html')
 
 def convert_dates(dates):
 
@@ -57,11 +57,6 @@ def news_today(request):
     news = Article.todays_news()
     return render(request, 'all-news/today-news.html', {"date": date,"news":news})
 
-@classmethod
-def search_by_title(cls,search_term):
-    news = cls.objects.filter(title__icontains=search_term)
-    return news
-
 
 def search_results(request):
 
@@ -75,3 +70,11 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'all-news/search.html',{"message":message})
+
+def article(request,article_id):
+
+    try:
+        article = Article.objects.get()
+    except DoesNotExist:
+        raise HTtp404()
+        return render((request), 'all-news/article.html')
