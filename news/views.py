@@ -85,6 +85,7 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'all-news/search.html',{"message":message})
 
+@login_required(login_url='/accounts/login/')
 def article(request,article_id):
 
     try:
@@ -94,9 +95,8 @@ def article(request,article_id):
         return render((request), 'all-news/article.html')
 
 
-        @login_required(login_path='/accounts/login/')
-        def article(request, article_id):
-
+        
+        
 
 @login_required(login_url='/accounts/login/')
 def new_article(request):

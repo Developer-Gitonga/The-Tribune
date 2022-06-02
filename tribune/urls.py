@@ -7,9 +7,10 @@ from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('news/',include('news.urls')),
-    path('accounts/', include('registration.backends.simple.urls')),
-    path('logout/', views.logout,{"next_page": '/'}),
+    path('',include('news.urls')),
+    path('accounts/', include('django_registration.backends.one_step.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    # path('logout/', views.LogoutView.as_view,{"next_page": '/'}),
     path('tinymce/', include('tinymce.urls')),
 ]
 
